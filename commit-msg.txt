@@ -1,0 +1,10 @@
+Initial commit: Coffee Explore mobile app
+
+Features:
+- Coffee selection with price, flavor, and location filters
+- Wine selection with full tasting notes (appearance, nose, palate)
+- Quality level conclusion for each beverage
+- Day/Night theme toggle
+- Coffee/Wine toggle switch
+
+Tech stack: React Native, Expo, TypeScript, AsyncStorage, Context API

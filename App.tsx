@@ -1,20 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { ThemeProvider, useTheme } from './src/context/ThemeContext';
+import { BeverageProvider, useBeverage } from './src/context/BeverageContext';
+import { ThemeToggle } from './src/components/ThemeToggle';
+import { BeverageToggle } from './src/components/BeverageToggle';
+import { CoffeeScreen } from './src/screens/CoffeeScreen';
+import { WineScreen } from './src/screens/WineScreen';
 
-export default function App() {
+const AppContent: React.FC = () => {
+  const { theme } = useTheme();
+  const { beverage } = useBeverage();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={styles.header}>
+        <BeverageToggle />
+        <ThemeToggle />
+      </View>
+      {beverage === 'coffee' ? <CoffeeScreen /> : <WineScreen />}
+    </SafeAreaView>
   );
-}
+};
+
+const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <BeverageProvider>
+        <AppContent />
+      </BeverageProvider>
+    </ThemeProvider>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
 });
+
+export default App;
